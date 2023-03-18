@@ -12,7 +12,10 @@
         "max-len": "off",
         "arrow-parens": "off",
         "indent": "off",
-        "comma-dangle": "off"
+        "comma-dangle": "off",
+        "eol-last": ["error", "never"]
+
+        
     },
-    "extends": ["eslint:recommended", "google"]
+    "extends": ["eslint:recommended", "google"],
 }
