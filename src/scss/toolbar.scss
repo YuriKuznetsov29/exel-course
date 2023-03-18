@@ -2,13 +2,11 @@
 @import "mixins";
 
 .excel__toolbar {
-    // background: darkred;
-
     position: absolute;
-    top: $header-heigth;
+    top: $header-height;
     left: 0;
     right: 0;
-    height: $toolbar-heigth;
+    height: $toolbar-height;
     border-top: 1px solid $border_color;
     border-bottom: 1px solid $border_color;
     padding: 7px 10px;

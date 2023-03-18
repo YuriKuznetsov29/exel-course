@@ -13,8 +13,9 @@
         "arrow-parens": "off",
         "indent": "off",
         "comma-dangle": "off",
+        "eol-last": ["error", "never"]
+
         
     },
     "extends": ["eslint:recommended", "google"],
-    "eol-last": "never"
 }
