@@ -13,7 +13,10 @@
         "arrow-parens": "off",
         "indent": "off",
         "comma-dangle": "off",
-        "eol-last": ["error", "never"]
+        "eol-last": ["error", "never"],
+        "require-jsdoc": "off",
+        "no-trailing-spaces": "off",
+        "object-curly-spacing": "off" 
 
         
     },
