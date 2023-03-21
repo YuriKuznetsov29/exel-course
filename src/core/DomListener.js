@@ -12,15 +12,21 @@ export class DomListener {
     initDOMListeners() {
         this.listeners.forEach(listener => {
             const method = getMethodName(listener)
+            if (!this[method]) {
+                throw new Error(`Method ${method} is not implimented in ${this.name || ''} Component`)
+            }
             console.log(method)
             console.log(listener)
             //addInventListener
-            this.$root.on(listener, this[method])
+            this.$root.on(listener, this[method].bind(this))
         })
     }
 
     removeDOMListeners() {
-        
+        this.listeners.forEach(listener => {
+            const method = getMethodName(listener)
+            this.$root.off(listener, this[method])
+        })
     }
 }
 
