@@ -19,9 +19,10 @@
         "object-curly-spacing": "off" ,
         "spaced-comment": "off",
         "operator-linebreak": "off",
-        "no-debugger": "off"
+        "no-debugger": "off",
+        "no-unused-vars": "off"
 
         
     },
-    "extends": ["eslint:recommended", "google"],
+    "extends": ["eslint:recommended", "google"]
 }

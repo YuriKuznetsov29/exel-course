@@ -15,8 +15,7 @@ export class DomListener {
             if (!this[method]) {
                 throw new Error(`Method ${method} is not implimented in ${this.name || ''} Component`)
             }
-            console.log(method)
-            console.log(listener)
+            this[method] = this[method].bind(this)
             //addInventListener
             this.$root.on(listener, this[method].bind(this))
         })
