@@ -83,6 +83,15 @@
     &:hover {
         cursor: col-resize;
     }
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1px;
+        height: 100vh;
+        background: $primary-color;
+    }
 }
 
 .row-resize {
@@ -91,5 +100,14 @@
     // width: 100%; оказалось не нужно так как right: 0; left: 0; растянули его по ширине
     &:hover {
         cursor: row-resize;
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 1px;
+        width: 100vw;
+        background: $primary-color;
     }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 class Dom {
     constructor(selector) {
         this.$el = typeof selector === 'string' 
@@ -39,12 +40,27 @@ class Dom {
         return this
     }
 
+    get data() {
+        return this.$el.dataset
+    }
+
     closest(selector) {
         return $(this.$el.closest(selector))
     }
 
     getCoords() {
         return this.$el.getBoundingClientRect()
+    }
+
+    findAll(selector) {
+        return this.$el.querySelectorAll(selector)
+    }
+
+    css(style = {}) {
+        // for (const key in stylle) {
+        //    this.$el.style[key] = style[key]
+        // }
+        Object.keys(style).forEach(el => this.$el.style[el] = style[el])
     }
 }
 
