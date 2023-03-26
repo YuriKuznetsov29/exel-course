@@ -1,4 +1,3 @@
-/* eslint-disable guard-for-in */
 class Dom {
     constructor(selector) {
         this.$el = typeof selector === 'string' 
@@ -50,6 +49,18 @@ class Dom {
 
     getCoords() {
         return this.$el.getBoundingClientRect()
+    }
+
+    addClass(className) {
+        this.$el.classList.add(className)
+    }
+
+    removeClass(className) {
+        this.$el.classList.remove(className)
+    }
+
+    find(selector) {
+        return $(this.$el.querySelector(selector))
     }
 
     findAll(selector) {
