@@ -73,6 +73,22 @@ class Dom {
         // }
         Object.keys(style).forEach(el => this.$el.style[el] = style[el])
     }
+
+    id(parse) {
+        if (parse) {
+            const parsed = this.id().split(':')
+            return {
+                row: +parsed[0],
+                col: +parsed[1]
+            }
+        }
+        return this.data.id // data - дата атрибут
+    }
+
+    focus() {
+        this.$el.focus()
+        return this
+    }
 }
 
 export function $(selector) {

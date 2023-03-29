@@ -11,8 +11,10 @@ function toCell(row) {
     return (_, col) => {
         return `
         <div class="cell" 
-        contenteditable="" 
+        contenteditable=""
+        tabindex="1"
         data-col="${col}" 
+        data-type="cell" 
         data-id="${row}:${col}">
         </div>`
     }
