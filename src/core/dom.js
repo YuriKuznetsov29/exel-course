@@ -22,6 +22,18 @@ class Dom {
         return this.$el.outerHTML.trim()
     }
 
+    // get text() {
+    //     return this.$el.textContent
+    // }
+
+    // set text(text) {
+    //     this.$el.textContent = text
+    // }
+
+    text(text) {
+        this.$el.textContent = text
+    }
+
     clear() {
         this.html('')
         return this

@@ -1,18 +1,20 @@
 import { ExcelComponent } from "../../core/ExcelComponent";
-import { isCell, shouldResize, nextSelector } from "./table.function";
+import { isCell, shouldResize } from "./table.function";
 import { resizeHandler } from "./table.resize";
 import { createTable } from "./table.template";
 import { TableSelection } from "./TableSelection";
 import { $ } from "../../core/dom"
 import { matrix } from "./table.function";
+import { nextSelector } from "../../core/utils";
 
 export class Table extends ExcelComponent {
     static className = 'excel__table'
     static rowsQty = 20
 
-    constructor($root) {
+    constructor($root, options) {
         super($root, {
-            listeners: ['mousedown', 'keydown']
+            listeners: ['mousedown', 'keydown'],
+            ...options
         })
     }
 
@@ -24,7 +26,10 @@ export class Table extends ExcelComponent {
         super.init()
         this.selection = new TableSelection()
         const $cell = this.$root.find('[data-id="0:0"]')
-        this.selection.select($cell)    
+        this.selection.select($cell)
+        this.emitter.subscribe('it is working', (text) => {
+            this.selection.current.text(text)
+        })    
     }
 
     onMousedown(event) { 
