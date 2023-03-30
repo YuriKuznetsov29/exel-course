@@ -1,4 +1,3 @@
-/* eslint-disable guard-for-in */
 class Dom {
     constructor(selector) {
         this.$el = typeof selector === 'string' 
@@ -21,6 +20,25 @@ class Dom {
             return this
         }
         return this.$el.outerHTML.trim()
+    }
+
+    // get text() {
+    //     return this.$el.textContent
+    // }
+
+    // set text(text) {
+    //     this.$el.textContent = text
+    // }
+
+    text(text) {
+        if (typeof text === 'string') {
+            this.$el.textContent = text
+            return this
+        }
+        if (this.$el.tagName.toLowerCase() === 'input') {
+            return this.$el.value.trim()
+        }
+        return this.$el.textContent.trim()
     }
 
     clear() {
@@ -52,6 +70,20 @@ class Dom {
         return this.$el.getBoundingClientRect()
     }
 
+    addClass(className) {
+        this.$el.classList.add(className)
+        return this
+    }
+
+    removeClass(className) {
+        this.$el.classList.remove(className)
+        return this
+    }
+
+    find(selector) {
+        return $(this.$el.querySelector(selector))
+    }
+
     findAll(selector) {
         return this.$el.querySelectorAll(selector)
     }
@@ -61,6 +93,22 @@ class Dom {
         //    this.$el.style[key] = style[key]
         // }
         Object.keys(style).forEach(el => this.$el.style[el] = style[el])
+    }
+
+    id(parse) {
+        if (parse) {
+            const parsed = this.id().split(':')
+            return {
+                row: +parsed[0],
+                col: +parsed[1]
+            }
+        }
+        return this.data.id // data - дата атрибут
+    }
+
+    focus() {
+        this.$el.focus()
+        return this
     }
 }
 

@@ -10,6 +10,8 @@ export function resizeHandler(event, root) {
         const coords = $parent.getCoords()
         const cells = root.findAll(`[data-col="${$parent.data.col}"]`)
         const type = $resizer.data.resize
+        console.log('resize', window.pageYOffset)
+        
         let value = 0
         if (type === 'col') {
             document.onmousemove = e => {
@@ -19,8 +21,10 @@ export function resizeHandler(event, root) {
             }
         } else {
             document.onmousemove = e => {
-                const delta = e.pageY - coords.bottom
+                // console.log(e)
+                const delta = e.pageY - coords.bottom - window.pageYOffset
                 value = coords.height + delta
+                console.log(value, 'value', e.pageY, 'Y', coords.bottom, 'bottom')
                 $resizer.css({ top: value - 4 + 'px'})
             }
         }
@@ -29,8 +33,11 @@ export function resizeHandler(event, root) {
                 $parent.css({ width: value + 'px'})
                 cells.forEach(el => el.style.width = value + 'px')
             } else {
+                // console.log($parent, value)
                 $parent.css({height: value + 'px'})
+                document.querySelectorAll('.row-info').forEach((el, i) => console.log(el.getBoundingClientRect().bottom, i))
             }
+            value = 0
             $resizer.css({opacity: 0})
             document.onmousemove = null
             document.onmouseup = null
