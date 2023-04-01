@@ -12,8 +12,8 @@ export function createStore(rootReducer, initialState = {}) {
             }
         },
         dispatch(action) {
-            state = rootReducer(state, action)
-            listeners.forEach(listener => listener(state))
+            state = rootReducer(state, action) // обновляем state
+            listeners.forEach(listener => listener(state)) // запускаем функции отправленные при подписке и передаем в них обновленный state
         },
         getState() {
             return state
@@ -22,26 +22,26 @@ export function createStore(rootReducer, initialState = {}) {
     }
 }
 
-export class CreateStore {
-    constructor(rootReducer, initialState = {}) {
-        this.state = rootReducer({...initialState}, {type: '__INIT__'})
-        this.listeners = []
-        this.reducer = rootReducer
-    }
+// export class CreateStore {
+//     constructor(rootReducer, initialState = {}) {
+//         this.state = rootReducer({...initialState}, {type: '__INIT__'})
+//         this.listeners = []
+//         this.reducer = rootReducer
+//     }
 
-    subscribe(fn) {
-        this.listeners.push(fn)
-        return () => {
-            this.listeners = this.listeners.forEach(el => el !== fn)
-        }
-    }
+//     subscribe(fn) {
+//         this.listeners.push(fn)
+//         return () => {
+//             this.listeners = this.listeners.forEach(el => el !== fn)
+//         }
+//     }
 
-    dispatch(action) {
-        this.state = this.reducer(this.state, action)
-        this.listeners.forEach(listener => listener(this.state))
-    }
+//     dispatch(action) {
+//         this.state = this.reducer(this.state, action)
+//         this.listeners.forEach(listener => listener(this.state))
+//     }
 
-    getState() {
-        return this.state
-    }
-}
+//     getState() {
+//         return this.state
+//     }
+// }
