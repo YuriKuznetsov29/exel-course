@@ -16,7 +16,7 @@ export function createStore(rootReducer, initialState = {}) {
             listeners.forEach(listener => listener(state)) // запускаем функции отправленные при подписке и передаем в них обновленный state
         },
         getState() {
-            return state
+            return JSON.parse(JSON.stringify(state))
         }
 
     }

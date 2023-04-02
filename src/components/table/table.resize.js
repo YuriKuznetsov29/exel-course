@@ -30,7 +30,6 @@ export function resizeHandler(event, root) {
                     $parent.css({ width: value + 'px'})
                     cells.forEach(el => el.style.width = value + 'px')
                 } else {
-                    console.log($parent.data)
                     $parent.css({height: value + 'px'})
                     // document.querySelectorAll('.row-info').forEach((el, i) => console.log(el.getBoundingClientRect().bottom, i))
                 }

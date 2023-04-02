@@ -1,5 +1,5 @@
 const DEFAULT_WIDTH = 120
-const DEFAULT_HEIGHT = 20
+const DEFAULT_HEIGHT = 24
 const CODES = {
     A: 65,
     Z: 90
