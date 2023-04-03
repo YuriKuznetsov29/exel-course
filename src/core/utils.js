@@ -50,3 +50,13 @@ export function isEqual(a, b) {
     }
     return a === b
 }
+
+export function styleTransform(styles) {
+    return styles.replace(/[A-Z]{1}/g, match => '-' + match.toLowerCase())
+}
+
+export function toInlineStyles(styles = {}) {
+    return Object.keys(styles)
+            .map(key => `${styleTransform(key)}: ${styles[key]}`)
+            .join(';')
+}
