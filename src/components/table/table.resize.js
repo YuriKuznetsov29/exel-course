@@ -34,15 +34,15 @@ export function resizeHandler(event, root) {
                     // document.querySelectorAll('.row-info').forEach((el, i) => console.log(el.getBoundingClientRect().bottom, i))
                 }
 
+                $resizer.css({opacity: 0})
+                document.onmousemove = null
+                document.onmouseup = null
+
                 resolve({
                     value,
                     type,
                     id: type === 'col' ? $parent.data.col : $parent.data.row,
                 })
-
-                $resizer.css({opacity: 0})
-                document.onmousemove = null
-                document.onmouseup = null
             }
         }
     }) 

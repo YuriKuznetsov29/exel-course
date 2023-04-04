@@ -1,5 +1,6 @@
 import { defaultStyles } from "../../constants"
 import { toInlineStyles } from "../../core/utils"
+import { parse } from "../../core/parse"
 
 const DEFAULT_WIDTH = 120
 const DEFAULT_HEIGHT = 24
@@ -13,13 +14,11 @@ const CODES = {
 
 
 function getWidth(state, index) {
-    // console.log('width: ' + (state[index] || DEFAULT_WIDTH) + 'px')
-    return 'width: ' + (state[index] || DEFAULT_WIDTH) + 'px'
+    return 'width: ' + (state[index] || DEFAULT_WIDTH) + 'px;'
 }
 
 function getHeight(state, index) {
-    // console.log('width: ' + (state[index] || DEFAULT_WIDTH) + 'px')
-    return 'height: ' + (state[index] || DEFAULT_HEIGHT) + 'px'
+    return 'height: ' + (state[index] || DEFAULT_HEIGHT) + 'px;'
 }
 
 function toCell(state, row) {
@@ -27,17 +26,20 @@ function toCell(state, row) {
         const id = `${row}:${col}`
         const data = state.dataState[`${row}:${col}`] || ''
         const width = getWidth(state.colState, col)
-        const styles = toInlineStyles(state.stylesState[id])
-        console.log(toInlineStyles(state.stylesState[id]))
+        const styles = toInlineStyles({
+            ...defaultStyles,
+            ...state.stylesState[id]
+        })
         return `
         <div class="cell" 
-        style="${width}"
+        style="${width} ${styles};"
         contenteditable=""
         tabindex="1"
-        data-col="${col} ${styles};" 
+        data-value="${data || ''}"
+        data-col="${col}" 
         data-type="cell" 
         data-id=${id}
-        >${data}</div>`
+        >${parse(data || '')}</div>`
     }
 }
 

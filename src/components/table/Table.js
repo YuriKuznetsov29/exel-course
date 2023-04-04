@@ -8,6 +8,7 @@ import { matrix } from "./table.function";
 import { nextSelector } from "../../core/utils";
 import * as actions from '@/redux/actions'
 import { defaultStyles } from "../../constants";
+import { parse } from "../../core/parse";
 
 export class Table extends ExcelComponent {
     static className = 'excel__table'
@@ -16,6 +17,7 @@ export class Table extends ExcelComponent {
     constructor($root, options) {
         super($root, {
             listeners: ['mousedown', 'keydown', 'input'],
+            subscribe: ['currentText'],
             ...options
         })
     }
@@ -31,10 +33,18 @@ export class Table extends ExcelComponent {
         const $cell = this.$root.find('[data-id="0:0"]')
         this.selectCell($cell)
 
-        this.$on('formula:input', (text) => {
-            this.selection.current.text(text)
-            this.updateTextInStore(text)
-        })
+        // this.$on('formula:input', (value) => {
+        //     this.selection.current
+        //     .attr('data-value', value)
+        //     .text(value)
+        //     this.updateTextInStore(value)
+        // })
+
+        this.$on('formula:input', value => {
+            this.selection.current.attr('data-value', value)
+            this.selection.current.text(parse(value))
+            this.updateTextInStore(value)
+          })
 
         this.$on('formula:enter', () => {
             this.selection.current.focus()
@@ -53,10 +63,15 @@ export class Table extends ExcelComponent {
         // })
     }
 
+    storeChanged({currentText}) {
+        this.selection.current.text(parse(currentText))
+      }
+
     selectCell($cell) {
         this.selection.select($cell)
-        this.$emit('table:select', $cell.text())
+        this.$emit('table:select', $cell)
         const styles = $cell.getStyles(Object.keys(defaultStyles))
+        console.log(styles)
         this.$dispatch(actions.changeStyles(styles))
         // console.log('styles to dispatch', styles)
     }

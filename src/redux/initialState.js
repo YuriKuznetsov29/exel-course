@@ -1,4 +1,4 @@
-import { defaultStyles } from "../constants"
+import { defaultName, defaultStyles } from "../constants"
 import { storage } from "../core/utils"
 
 const defaultState = {
@@ -7,7 +7,16 @@ const defaultState = {
     dataState: {},
     stylesState: {},
     currentText: '',
-    currentStyles: defaultStyles
+    currentStyles: defaultStyles,
+    tableName: defaultName
 }
+
+// function normalizeCurrentStyles(state) {
+//     console.log('dsfsff', state)
+//     return {
+//         ...state,
+//         currentStyles: defaultStyles
+//     }
+// }
 
 export const initialState = storage('excel-state') ? storage('excel-state') : defaultState
