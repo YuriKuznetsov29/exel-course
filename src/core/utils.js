@@ -35,4 +35,40 @@ export function nextSelector(key, {row, col}) {
     }
 
     return `[data-id="${row}:${col}"]`
- }
+}
+
+export function storage(key, data = null) {
+    if (!data) {
+        return JSON.parse(localStorage.getItem(key))
+    }
+    localStorage.setItem(key, JSON.stringify(data))
+}
+
+export function isEqual(a, b) {
+    if (typeof a === 'object' && typeof b === 'object') {
+        return JSON.stringify(a) === JSON.stringify(b)
+    }
+    return a === b
+}
+
+export function styleTransform(styles) {
+    return styles.replace(/[A-Z]{1}/g, match => '-' + match.toLowerCase())
+}
+
+export function toInlineStyles(styles = {}) {
+    return Object.keys(styles)
+            .map(key => `${styleTransform(key)}: ${styles[key]}`)
+            .join(';')
+}
+
+export function debounce(fn, wait) {
+    let timeout
+    return function(...args) {
+        const later = () => {
+            clearTimeout(timeout)
+            fn(...args)
+        }
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+    }
+}

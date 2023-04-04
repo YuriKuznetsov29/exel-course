@@ -31,7 +31,7 @@ class Dom {
     // }
 
     text(text) {
-        if (typeof text === 'string') {
+        if (typeof text !== 'undefined') {
             this.$el.textContent = text
             return this
         }
@@ -60,6 +60,14 @@ class Dom {
 
     get data() {
         return this.$el.dataset
+    }
+
+    attr(name, value) {
+        if (value) {
+            this.$el.setAttribute(name, value)
+            return this
+        }
+        return this.$el.getAttribute(name)
     }
 
     closest(selector) {
@@ -93,6 +101,26 @@ class Dom {
         //    this.$el.style[key] = style[key]
         // }
         Object.keys(style).forEach(el => this.$el.style[el] = style[el])
+    }
+
+    getStyles(styles = []) {
+        const baseStyle = (key) => {
+            switch (key) {
+                case 'textAlign':
+                    return 'left'
+                case 'textDecoration':
+                    return 'none'
+                case 'fontWeight':
+                case 'fontStyle':
+                    return 'normal'
+                default:
+                    break;
+            }
+        }
+        return styles.reduce((res, s) => {
+            res[s] = this.$el.style[s] // === '' ? baseStyle(s) : this.$el.style[s]
+            return res
+        }, {})
     }
 
     id(parse) {

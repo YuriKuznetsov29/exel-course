@@ -1,40 +1,44 @@
 import { ExcelComponent } from "../../core/ExcelComponent";
+import { createToolbar } from "./toolbar.template";
+import { $ } from "../../core/dom"
+import { ExcelStateComponent } from "../../core/ExcelStateComponent";
+import { defaultStyles } from "../../constants";
 
-export class Toolbar extends ExcelComponent {
+export class Toolbar extends ExcelStateComponent {
     static className = 'excel__toolbar'
 
     constructor($root, options) {
         super($root, {
             name: 'Toolbar',
             listeners: ['click'],
+            subscribe: ['currentStyles'],
             ...options
         })
     }
 
+    prepare() {
+        this.initState(defaultStyles)
+    }
+
+    get template() {
+        return createToolbar(this.state)
+    }
+
     toHTML() {
-        return `
-            <div class="button">
-            <span class="material-symbols-outlined">format_align_left</span>
-            </div>
-            <div class="button">
-                <span class="material-symbols-outlined">format_align_justify</span>
-            </div>
-            <div class="button">
-                <span class="material-symbols-outlined">format_align_right</span>
-            </div>
-            <div class="button">
-                <span class="material-symbols-outlined">format_bold</span>
-            </div>
-            <div class="button">
-                <span class="material-symbols-outlined">format_italic</span>
-            </div>
-            <div class="button">
-                <span class="material-symbols-outlined">format_underlined</span>
-            </div>
-        `
+        return this.template
+    }
+
+    storeChanged(changed) {
+        console.log(changed)
+        this.setState(changed.currentStyles)
     }
 
     onClick(event) {
-        console.log(event.target)
+        const $target = $(event.target)
+        if ($target.data.type === 'button') {
+            const value = JSON.parse($target.data.value)
+            const key = Object.keys(value)[0]
+            this.$emit('toolbar:applyStyle', value)
+        }
     }
 }
