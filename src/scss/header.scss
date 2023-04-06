@@ -34,3 +34,9 @@
         @include button(red);
     }
 }
+
+.link {
+    text-decoration: none;
+    background-color: inherit;
+    color: inherit;
+}
