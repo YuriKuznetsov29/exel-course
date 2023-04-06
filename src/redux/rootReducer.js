@@ -1,5 +1,5 @@
 import { toInlineStyles } from "../core/utils"
-import { CHANGE_TEXT, CHANGE_STYLES, TABLE_RESIZE, APPLY_STYLE, TABLE_NAME } from "./types"
+import { CHANGE_TEXT, CHANGE_STYLES, TABLE_RESIZE, APPLY_STYLE, TABLE_NAME, TABLE_TIME } from "./types"
 
 export function rootReducer(state, action) {
     let field
@@ -34,6 +34,8 @@ export function rootReducer(state, action) {
             }
         case TABLE_NAME:
             return {...state, tableName: action.data}
+        case TABLE_TIME:
+            return {...state, openDate: action.data}
         default: return state
     }
 }

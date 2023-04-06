@@ -27,13 +27,15 @@ export class Header extends ExcelComponent {
 
     onClick(event) {
         const $target = $(event.target)
-        console.log(event.target)
         if ($target.data.type === 'delete') {
-            console.log('test')
-            const key = ActiveRoute.path
-            localStorage.removeItem(key)
-            window.location.href = '/'
-            console.log('test')
+            const decision = confirm('Вы действительно хотите удалить эту страницу?')
+            if (decision) {
+                const key = ActiveRoute.path
+                localStorage.removeItem(key)
+                ActiveRoute.navigate('')
+            }
+        } else if ($target.data.type === 'exit') {
+            ActiveRoute.navigate('')
         }
     }
 }

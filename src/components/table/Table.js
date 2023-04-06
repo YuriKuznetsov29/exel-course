@@ -61,6 +61,7 @@ export class Table extends ExcelComponent {
         // this.$subscribe(state => {
         //     console.log('TableState', state)
         // })
+        this.$dispatch(actions.openDate(new Date))
     }
 
     storeChanged({currentText}) {

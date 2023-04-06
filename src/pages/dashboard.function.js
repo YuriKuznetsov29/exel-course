@@ -1,12 +1,18 @@
-function toHTML(_, i) {
-    const key = localStorage.key(i)
-    const storeCurrentTable = JSON.parse(localStorage.getItem(key))
-    const name = storeCurrentTable.tableName
+import { storage } from '../core/utils'
+
+function toHTML(key) {
+    const model = storage(key)
+    // const storeCurrentTable = JSON.parse(localStorage.getItem(key))
+    const name = model.tableName
+    const date = model.openDate
     // console.log(key)
     return `
     <li class="db__record">
         <a href="#${key}">${name}</a>
-        <strong>12.06.2020</strong>
+        <strong>
+            ${new Date(date).toLocaleDateString()}
+            ${new Date(date).toLocaleTimeString()}
+        </strong>
     </li>`
 }
 
@@ -20,7 +26,7 @@ function getAllKeys() {
         keys.push(key)
     }
     return keys
-} 
+}
 
 export function createRecordsTable() {
     const keys = getAllKeys()
