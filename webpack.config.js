@@ -2,6 +2,7 @@ const path = require('path') // импортируем переменную дл
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require("copy-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const webpack = require('webpack')
 
 const isProd = process.env.NODE_ENV === 'production' // создали переменные дял определения режима сборки dev/prod, для них доустановили пакет cross-env
 const isDev = !isProd
@@ -67,6 +68,9 @@ module.exports = {
           new MiniCssExtractPlugin({ // плагин позволяющий собирать css файл
             filename: filename('css')
           }),
+          new webpack.DefinePlugin({ // плагин делает доступной переменную состояния сборки
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+          })
     ],
     module: {
         rules: [

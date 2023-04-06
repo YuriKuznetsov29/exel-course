@@ -61,6 +61,7 @@ export class Table extends ExcelComponent {
         // this.$subscribe(state => {
         //     console.log('TableState', state)
         // })
+        this.$dispatch(actions.openDate(new Date))
     }
 
     storeChanged({currentText}) {
@@ -71,7 +72,7 @@ export class Table extends ExcelComponent {
         this.selection.select($cell)
         this.$emit('table:select', $cell)
         const styles = $cell.getStyles(Object.keys(defaultStyles))
-        console.log(styles)
+        // console.log(styles)
         this.$dispatch(actions.changeStyles(styles))
         // console.log('styles to dispatch', styles)
     }
